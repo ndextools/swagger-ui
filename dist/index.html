@@ -1,9 +1,10 @@
+<!-- Variations from master build have been taged with `NdexOpenApi` for easier discovery. -->
 <!-- HTML for static distribution bundle build -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Swagger UI</title>
+  <title>NDEx API</title> <!-- NdexOpenApi -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
   <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
@@ -71,18 +72,29 @@
 <script src="./swagger-ui-standalone-preset.js"> </script>
 <script>
 window.onload = function() {
-  
+    
+  // NdexOpenApi
+  function HideTopbarPlugin() {
+    return {
+      components: {
+        Topbar: function() { return null }
+      }
+    }
+  }
+
   // Build a system
   const ui = SwaggerUIBundle({
-    url: "http://petstore.swagger.io/v2/swagger.json",
+    url: "http://ndexbio.oas.swagger-ui.custom.s3-website-us-west-2.amazonaws.com/ndex_openapi.json",  // NdexOpenApi
     dom_id: '#swagger-ui',
     deepLinking: true,
+    docExpansion: 'none',  // NdexOpenApi
     presets: [
       SwaggerUIBundle.presets.apis,
       SwaggerUIStandalonePreset
     ],
     plugins: [
-      SwaggerUIBundle.plugins.DownloadUrl
+      SwaggerUIBundle.plugins.DownloadUrl,
+      HideTopbarPlugin  // NdexOpenApi
     ],
     layout: "StandaloneLayout"
   })
