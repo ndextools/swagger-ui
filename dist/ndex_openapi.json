@@ -1,7 +1,7 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "version" : "2.2.0",
+    "version" : "2.2.1",
     "title" : "NDEx 2.2 REST API",
     "description" : "This [OpenAPI Document](https://github.com/OAI/OpenAPI-Specification) defines the **N**etwork **D**ata **Ex**change **REST API** which is used to communicate with [www.ndexbio.org](http://www.home.ndexbio.org/index/) and other NDEx private servers. The NDEx Project provides an open-source framework and online database commons where scientists can upload, share, and publicly distribute biological networks *(Pratt et al., 2015, Cell Systems 1, 302-305, October 28, 2015 ©2015 Elsevier Inc. [ScienceDirect](http://www.sciencedirect.com/science/article/pii/S2405471215001477))*.\n\nWhen this document is used in conjunction with [Swagger-UI](https://github.com/swagger-api/swagger-ui) or [SwaggerHub](https://swaggerhub.com/), developers can interactively \"try out\" NDEx API requests, thus providing them with a low-level API and debugging environment as they create language-specific program libraries. Furthermore, this document is written in an world-standard file format employed by code, testing and document generating [applications and tools](https://github.com/OAI/OpenAPI-Specification/blob/master/IMPLEMENTATIONS.md).\n\nExcept for this OpenAPI document, all references to the API, sources and documentation are copyrighted: *© 2013-2018, The Regents of the University of California, The Cytoscape Consortium.  All rights reserved.*  Please abide with their [Terms of Use, Licensing and Sources](http://www.home.ndexbio.org/disclaimer-license/).\n\n`Google's OAuth2 security is presently not supported. Moreover, the following NDEx API operations are not included in this document. They will be added as Swagger-UI allows.`\n\n  - `Post: /network`\n  - `Put: /network/{networkid}`\n  - `Post: /network/asCX`     \n  - `Put: /network/{networkid}/asCX`\n  \nThis OpenAPI document was produced independent of the NDEx Project, and it may not reflect the most current API in use. View or download the official NDEx API documentation using the link below.\n"
   },
@@ -140,7 +140,7 @@
     },
     "/batch/network/export" : {
       "post" : {
-        "summary" : "Export Networks  ***** UNDER DEVELOPMENT",
+        "summary" : "Export Networks",
         "description" : "- Creates network export tasks for the set of networks specified by the `networkids` property in the network export request body.\n- The format which to export is specified using the `exportFormat` property in the request body.\n- The /admin/status?format=full function can be used to get a complete list of importers/exporters the server supports.\"\n- Returns a JSON object which maps Network UUIDs to ExportTaskIDs.  The taskId can then be used to download the exported file.  Refer to the *Download Exported File by Task UUID* operation.\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
@@ -193,7 +193,7 @@
     },
     "/batch/network/{networkid}/aspect" : {
       "post" : {
-        "summary" : "Get Aspects of a Network  ***** UNDER DEVELOPMENT",
+        "summary" : "Get Aspects of a Network",
         "description" : "- Returns a CX document containing selected aspects of the Network specified by **networkid** path parameter.  The aspects to return are specified in the POSTed JSON array of aspect names.\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
@@ -668,7 +668,7 @@
     },
     "/group/{groupid}/permission" : {
       "get" : {
-        "summary" : "Get Permissions (Two Options)  ***** UNDER DEVELOPMENT",
+        "summary" : "Get Permissions (Two Options)",
         "description" : "Option 1 - Get Group Permission for a Specific Network\n- Using the **networkId=** query parameter:\n  - Returns the explicit permission the specified **groupid** has on the specified **networkid**, which is either READ or WRITE.\n  - Authentication is manditory to ensure only members of a group can obtain group-network permissions.\n---\nOption 2 - Get Network Permissions of a Group\n- Using **permission=**, **start=** and **size=** query parameters:\n  - Returns network permissions for the specified group.\n  - The returned JSON object contains key/value pairs,where the key is the network UUID and the value is the corresponding permission.\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
@@ -1023,7 +1023,7 @@
     },
     "/network/{networkid}/aspects" : {
       "put" : {
-        "summary" : "Update Network Aspects  ***** UNDER DEVELOPMENT",
+        "summary" : "Update Network Aspects",
         "description" : "- Updates aspects of the network specified by **networkid**. \n- Put data contains a CX object which includes the specified aspects that will be used to overwrite or insert into the network.\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
@@ -1140,7 +1140,7 @@
     },
     "/network/{networkid}/properties" : {
       "put" : {
-        "summary" : "Set Network Properties  ***** UNDER DEVELOPMENT",
+        "summary" : "Set Network Properties",
         "description" : "- Updates the **NetworkAttributes** aspect of the network specified by **networkid** based on the list of **NdexPropertyValuePair** objects in the PUT data.\n- Errors if:\n  - the authenticated user does not have ADMIN permission to the specified network\n  - the **networkid** does not correspond to an existing network\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
@@ -1355,7 +1355,7 @@
         }
       },
       "put" : {
-        "summary" : "Update Network Profile and Properties  ***** STILL UNDER DEVELOPMENT",
+        "summary" : "Update Network Profile and Properties",
         "description" : "- The JSON request body contains key/value pairs that overwrite the corresponding properties of a given network.\n- at this time, only the following properties of a network can be updated:\n  - `name` \n  - `description`\n  - `version`\n  - `visibility` \n  - and `properties`\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
