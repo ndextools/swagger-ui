@@ -1,30 +1,23 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "version" : "2.2.1",
-    "title" : "NDEx 2.2 REST API",
-    "description" : "This [OpenAPI Document](https://github.com/OAI/OpenAPI-Specification) defines the **N**etwork **D**ata **Ex**change **REST API** which is used to communicate with [www.ndexbio.org](http://www.home.ndexbio.org/index/) and other NDEx private servers. The NDEx Project provides an open-source framework and online database commons where scientists can upload, share, and publicly distribute biological networks *(Pratt et al., 2015, Cell Systems 1, 302-305, October 28, 2015 ©2015 Elsevier Inc. [ScienceDirect](http://www.sciencedirect.com/science/article/pii/S2405471215001477))*.\n\nWhen this document is used in conjunction with [Swagger-UI](https://github.com/swagger-api/swagger-ui) or [SwaggerHub](https://swaggerhub.com/), developers can interactively \"try out\" NDEx API requests, thus providing them with a low-level API and debugging environment as they create language-specific program libraries. Furthermore, this document is written in an world-standard file format employed by code, testing and document generating [applications and tools](https://github.com/OAI/OpenAPI-Specification/blob/master/IMPLEMENTATIONS.md).\n\nExcept for this OpenAPI document, all references to the API, sources and documentation are copyrighted: *© 2013-2018, The Regents of the University of California, The Cytoscape Consortium.  All rights reserved.*  Please abide with their [Terms of Use, Licensing and Sources](http://www.home.ndexbio.org/disclaimer-license/).\n\n`Google's OAuth2 security is presently not supported. Moreover, the following NDEx API operations are not included in this document. They will be added as Swagger-UI allows.`\n\n  - `Post: /network`\n  - `Put: /network/{networkid}`\n  - `Post: /network/asCX`     \n  - `Put: /network/{networkid}/asCX`\n  \nThis OpenAPI document was produced independent of the NDEx Project, and it may not reflect the most current API in use. View or download the official NDEx API documentation using the link below.\n"
+    "version" : "2.3.0",
+    "title" : "NDEx 2.3 REST API",
+    "description" : "This [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification) document defines the **N**etwork **D**ata **Ex**change (**NDEx**) REST API which is used to communicate with NDEx public and private servers.\n\nThis document and all references to the NDEx REST API, source code and ancillary documentation are copyrighted: *© 2013-2018, The Regents of the University of California, The Cytoscape Consortium.  All rights reserved.*  Please abide with the [Terms of Use, Licensing and Sources](http://www.home.ndexbio.org/disclaimer-license/). Likewise, the [Swagger-UI](https://github.com/swagger-api/swagger-ui) document reader that displays this OpenAPI document is copyrighted by *Smartbear Software*. Its open-source software license is found [here](https://github.com/swagger-api/swagger-ui/blob/master/LICENSE).  \n    \n\nGoogle's OAuth login and the following API endpoints are not currently supported.  They will be added when the Swagger-UI document reader permits.\n\n  - `Post: /network`\n  - `Put:  /network/{networkid}`\n  \n\nBasic Authentication and all other API endpoints are supported.  View or download the full NDEx API using the link below.\n"
   },
   "externalDocs" : {
-    "description" : "Official NDEx API documentation",
+    "description" : "NDEx API document",
     "url" : "http://www.home.ndexbio.org/using-the-ndex-server-api/"
   },
   "servers" : [ {
-    "url" : "http://test.ndexbio.org/v2",
-    "description" : "NDEx test server"
-  }, {
-    "url" : "http://test.ndexbio.org/rest",
-    "description" : "NDEx test server"
-  }, {
     "url" : "http://www.ndexbio.org/v2",
     "description" : "NDEx public server"
   }, {
     "url" : "http://{Host}/{Version}",
-    "description" : "The host server URL and API version can be overriden.\n",
+    "description" : "The host server URL and API version can be overridden.\n",
     "variables" : {
       "Host" : {
-        "description" : "Permits the user to access a private NDEX server or perform legacy API v1.3 operations.\n",
-        "default" : "test.ndexbio.org"
+        "default" : "www.ndexbio.org"
       },
       "Version" : {
         "description" : "API version",
@@ -49,9 +42,6 @@
     "name" : "Task"
   }, {
     "name" : "User"
-  }, {
-    "name" : "v1.3 API methods",
-    "description" : "`Server base path {Version} must be toggled to 'rest' to use these methods.`\n"
   } ],
   "paths" : {
     "/admin/status" : {
@@ -162,8 +152,8 @@
                     "items" : {
                       "type" : "string",
                       "format" : "uuid",
-                      "description" : "A list of network UUIDs.",
-                      "example" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                      "description" : "A list of network UUIDs. An example network UUID is entered for demonstration purposes. It can be replaced with one or more  network UUIDs, as needed.",
+                      "example" : "cac8ec21-2d32-11e8-b939-0ac135e8bacf"
                     }
                   }
                 }
@@ -252,9 +242,9 @@
                 "description" : "Network UUIDs",
                 "items" : {
                   "type" : "string",
-                  "description" : "Network UUID",
                   "format" : "uuid",
-                  "example" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                  "description" : "A list of network UUIDs. An example network UUID is entered for demonstration purposes. It can be replaced with one or more  network UUIDs, as needed.",
+                  "example" : "2cda23a9-1e5f-11e8-b939-0ac135e8bacf"
                 }
               }
             }
@@ -300,8 +290,9 @@
                 "description" : "List of Network Summary UUIDs",
                 "items" : {
                   "type" : "string",
-                  "description" : "Network Summary UUID",
-                  "example" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                  "format" : "uuid",
+                  "description" : "A list of network UUIDs. An example network UUID is entered for demonstration purposes. It can be replaced with one or more  network UUIDs, as needed.",
+                  "example" : "cac8ec21-2d32-11e8-b939-0ac135e8bacf"
                 }
               }
             }
@@ -334,7 +325,7 @@
     "/batch/task" : {
       "post" : {
         "summary" : "Get Tasks by UUIDs",
-        "description" : "- Returns an array of Task objects selected by the POSTed JSON array if Task UUIDs.\n",
+        "description" : "- Returns an array of Task objects selected by the POSTed JSON array of Task UUIDs.\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
         } ],
@@ -427,7 +418,7 @@
     "/group" : {
       "post" : {
         "summary" : "Create a Group",
-        "description" : "- Creates a new group owned by the authenticated user.\n- The following properties can be set for the new group\n  - `groupName`\n  - `image`\n  - `website`\n  - `description`\n- A URL link associated with the newly created group is returned in the response body upon successful completion. \n- The group's UUID is a component of this URL and corresponds to the **groupid** parameter used in subsequent Get/Put/Delete group operations.\n- Returns an error if:\n  - the `groupName` property is not specified or already in use\n  - the user is not authenticated\n",
+        "description" : "- Creates a new group owned by the authenticated user.\n- The following properties can be set for the new group\n  - `groupName`\n  - `image`\n  - `website`\n  - `description`\n- A URL link associated with the newly created group is returned in the response body upon successful completion. \n- The group's UUID is a component of this URL and corresponds to the **groupid** parameter used in subsequent Get/Put/Delete group operations.\n- Returns an error if\n  - the `groupName` property is not specified or already in use\n  - the user is not authenticated\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
         } ],
@@ -436,7 +427,34 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/GroupObjectSchema"
+                "type" : "object",
+                "description" : "Group object",
+                "properties" : {
+                  "properties" : {
+                    "type" : "object"
+                  },
+                  "groupName" : {
+                    "type" : "string"
+                  },
+                  "image" : {
+                    "type" : "string",
+                    "format" : "url",
+                    "nullable" : true,
+                    "default" : null
+                  },
+                  "website" : {
+                    "type" : "string",
+                    "format" : "url",
+                    "nullable" : true,
+                    "default" : null
+                  },
+                  "description" : {
+                    "type" : "string",
+                    "nullable" : true,
+                    "default" : null
+                  }
+                },
+                "required" : [ "groupName" ]
               }
             }
           }
@@ -503,7 +521,34 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/GroupObjectSchema"
+                "type" : "object",
+                "description" : "Group object",
+                "properties" : {
+                  "properties" : {
+                    "type" : "object"
+                  },
+                  "groupName" : {
+                    "type" : "string"
+                  },
+                  "image" : {
+                    "type" : "string",
+                    "format" : "url",
+                    "nullable" : true,
+                    "default" : null
+                  },
+                  "website" : {
+                    "type" : "string",
+                    "format" : "url",
+                    "nullable" : true,
+                    "default" : null
+                  },
+                  "description" : {
+                    "type" : "string",
+                    "nullable" : true,
+                    "default" : null
+                  }
+                },
+                "required" : [ "groupName" ]
               }
             }
           }
@@ -742,13 +787,13 @@
     "/network/{networkid}" : {
       "get" : {
         "summary" : "Get Complete Network in CX Format",
-        "description" : "- Returns the specified network as CX.  \n- This is performed as a monolithic operation, so it is advisable for applications to first use the **getNetworkSummary** method to check the node and edge counts for a network before retrieving the network.\n___\n**Note: This operation is backward compatible with the V1.3 API. To use it as such, the Server base path {Version} must be toggled to 'rest'.**\n",
+        "description" : "- Returns the specified network as CX.  \n- This is performed as a monolithic operation, so it is advisable for applications to first use the **getNetworkSummary** method to check the node and edge counts for a network before retrieving the network.\n",
         "security" : [ { }, {
           "BASIC_AUTH" : [ ]
         } ],
         "tags" : [ "Network" ],
         "parameters" : [ {
-          "$ref" : "#/components/parameters/NetworkIdPath"
+          "$ref" : "#/components/parameters/NetworkIdDemoPath"
         }, {
           "$ref" : "#/components/parameters/AccessKeyValueParam"
         } ],
@@ -889,7 +934,7 @@
         } ],
         "tags" : [ "Network" ],
         "parameters" : [ {
-          "$ref" : "#/components/parameters/NetworkIdPath"
+          "$ref" : "#/components/parameters/NetworkIdDemoPath"
         }, {
           "$ref" : "#/components/parameters/AccessKeyValueParam"
         } ],
@@ -932,9 +977,9 @@
         } ],
         "tags" : [ "Network" ],
         "parameters" : [ {
-          "$ref" : "#/components/parameters/NetworkIdPath"
+          "$ref" : "#/components/parameters/NetworkIdDemoPath"
         }, {
-          "$ref" : "#/components/parameters/AspectNamePath"
+          "$ref" : "#/components/parameters/AspectNameDemoPath"
         }, {
           "$ref" : "#/components/parameters/SizeParam"
         } ],
@@ -1063,7 +1108,7 @@
         } ],
         "tags" : [ "Network" ],
         "parameters" : [ {
-          "$ref" : "#/components/parameters/NetworkIdPath"
+          "$ref" : "#/components/parameters/NetworkIdDemoPath"
         } ],
         "responses" : {
           "201" : {
@@ -1194,13 +1239,13 @@
     "/network/{networkid}/provenance" : {
       "get" : {
         "summary" : "Get Network Provenance",
-        "description" : "- Returns the Provenance aspect of the network specified by **networkid**.  \n- The returned value is a JSON *ProvenanceEntity* object which in turn contains a tree structure of *ProvenanceEvent* and *ProvenanceEntity* objects that describe the provenance history of the network.\n- Refer to the document [NDEx Provenance History](http://www.home.ndexbio.org/network-provenance-history/) for a detailed desciption of this structure and best practices for its use.\n- Errors if:\n  - the **networkid** does not correspond to an existing network\n___\n**Note: This operation is backward compatible with the V1.3 API. To use it as such, the Server base path {Version} must be toggled to 'rest'.**\n",
+        "description" : "- Returns the Provenance aspect of the network specified by **networkid**.  \n- The returned value is a JSON *ProvenanceEntity* object which in turn contains a tree structure of *ProvenanceEvent* and *ProvenanceEntity* objects that describe the provenance history of the network.\n- Refer to the document [NDEx Provenance History](http://www.home.ndexbio.org/network-provenance-history/) for a detailed desciption of this structure and best practices for its use.\n- Errors if:\n  - the **networkid** does not correspond to an existing network\n",
         "security" : [ { }, {
           "BASIC_AUTH" : [ ]
         } ],
         "tags" : [ "Network" ],
         "parameters" : [ {
-          "$ref" : "#/components/parameters/NetworkIdPath"
+          "$ref" : "#/components/parameters/NetworkIdDemoPath"
         }, {
           "$ref" : "#/components/parameters/AccessKeyValueParam"
         } ],
@@ -1225,7 +1270,7 @@
       },
       "put" : {
         "summary" : "Set Network Provenance",
-        "description" : "- Updates the Provenance aspect of the network specified by **networkid** to be the *ProvenanceEntity* object of the PUT data.  \n- The *ProvenanceEntity* object is intended to represent the current state and history of the network and to contain a tree structure of *ProvenanceEvent* and *ProvenanceEntity* objects that describe the provenance history.\n- Refer to the document [NDEx Provenance History](http://www.home.ndexbio.org/network-provenance-history/) for a detailed desciption of this structure and best practices for its use.\n- Errors if:\n  - the authenticated user does not have ADMIN permission to the specified network\n  - the **networkid** does not correspond to an existing network\n___\n**Note: This operation is backward compatible with the V1.3 API. To use it as such, the Server base path {Version} must be toggled to 'rest'.**\n",
+        "description" : "- Updates the Provenance aspect of the network specified by **networkid** to be the *ProvenanceEntity* object of the PUT data.  \n- The *ProvenanceEntity* object is intended to represent the current state and history of the network and to contain a tree structure of *ProvenanceEvent* and *ProvenanceEntity* objects that describe the provenance history.\n- Refer to the document [NDEx Provenance History](http://www.home.ndexbio.org/network-provenance-history/) for a detailed desciption of this structure and best practices for its use.\n- Errors if:\n  - the authenticated user does not have ADMIN permission to the specified network\n  - the **networkid** does not correspond to an existing network\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
         } ],
@@ -1289,7 +1334,7 @@
       },
       "put" : {
         "summary" : "Set Sample Network",
-        "description" : "- Sets the example network for the network specified by **networkid**.  The sample sanple network is specified by the CX data in the request body. \n- Errors if:\n  - the authenticated user does not have ADMIN permissions to the specified network\n  - the **networkid** does not correspond to an existing network\n",
+        "description" : "- Sets the example network for the network specified by **networkid**.  The sample network is specified by the CX data in the request body. \n- Errors if:\n  - the authenticated user does not have ADMIN permissions to the specified network\n  - the **networkid** does not correspond to an existing network\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
         } ],
@@ -1331,7 +1376,7 @@
         } ],
         "tags" : [ "Network" ],
         "parameters" : [ {
-          "$ref" : "#/components/parameters/NetworkIdPath"
+          "$ref" : "#/components/parameters/NetworkIdDemoPath"
         }, {
           "$ref" : "#/components/parameters/AccessKeyValueParam"
         } ],
@@ -1731,20 +1776,22 @@
               "application/json" : {
                 "schema" : {
                   "type" : "object",
-                  "description" : "Response payload object",
+                  "description" : "SearchResult object",
                   "properties" : {
                     "resultList" : {
-                      "description" : "List of Group objects",
                       "type" : "array",
+                      "description" : "List of Group objects",
                       "items" : {
                         "$ref" : "#/components/schemas/GroupObjectSchema"
                       }
                     },
                     "numFound" : {
-                      "type" : "number"
+                      "type" : "number",
+                      "description" : "number of Group objects meeting search criterion"
                     },
                     "start" : {
-                      "type" : "number"
+                      "type" : "number",
+                      "description" : "index to first Group object returned relative to numFound"
                     }
                   }
                 }
@@ -1809,17 +1856,19 @@
               "application/json" : {
                 "schema" : {
                   "type" : "object",
-                  "description" : "Response payload object",
+                  "description" : "SearchResult object",
                   "properties" : {
                     "numFound" : {
-                      "type" : "number"
+                      "type" : "number",
+                      "description" : "number of NetworkSummary objects meeting search criterion"
                     },
                     "start" : {
-                      "type" : "number"
+                      "type" : "number",
+                      "description" : "index to first NetworkSummary object returned relative to numFound"
                     },
                     "networks" : {
-                      "description" : "List of Network Summary objects",
                       "type" : "array",
+                      "description" : "List of NetworkSummary objects",
                       "items" : {
                         "$ref" : "#/components/schemas/NetworkSummaryObjectSchema"
                       }
@@ -1864,17 +1913,19 @@
               "application/json" : {
                 "schema" : {
                   "type" : "object",
-                  "description" : "Response payload object",
+                  "description" : "SearchResult object",
                   "properties" : {
                     "numFound" : {
-                      "type" : "number"
+                      "type" : "number",
+                      "description" : "number of NetworkSummary objects meeting search criterion"
                     },
                     "start" : {
-                      "type" : "number"
+                      "type" : "number",
+                      "description" : "index to first NetworkSummary object relative to numFound"
                     },
                     "networks" : {
-                      "description" : "List of Network Summary objects",
                       "type" : "array",
+                      "description" : "List of NetworkSummary objects",
                       "items" : {
                         "$ref" : "#/components/schemas/NetworkSummaryObjectSchema"
                       }
@@ -1982,23 +2033,34 @@
     "/search/network/{networkid}/query" : {
       "post" : {
         "summary" : "Query Network",
-        "description" : "- Returns a CX Network that is a neighborhood subnetwork of the network specified by **networkId**.\n- The query finds the subnetwork by a traversal of the network starting with nodes associated with the following properties:\n  - `searchString`\n  - `searchDepth`\n  - `edgeLimit`\n- An error is returned if the number of edges in the result is larger than the `edgeLimit` property.\n",
+        "description" : "- Returns a CX Network that is a neighborhood subnetwork of the network specified by **networkId**.\n- The query finds the subnetwork by a traversal of the network starting with nodes associated with the following properties:\n  - `searchString`\n  - `searchDepth`\n  - `edgeLimit`\n  - `errorWhenLimitIsOver`\n",
         "security" : [ {
           "BASIC_AUTH" : [ ]
         } ],
         "tags" : [ "Search" ],
         "parameters" : [ {
-          "$ref" : "#/components/parameters/NetworkIdPath"
+          "$ref" : "#/components/parameters/NetworkIdDemoPath"
+        }, {
+          "in" : "query",
+          "name" : "save",
+          "description" : "Only an authenticated user can call this function with this parameter set to true. When save=true, the server will save the query result as a network in the caller’s account and return the URL of the network resource to the user. Saving query result as a network is a asynchronous call, which means the server will return the URL of the network resource (with HTTP return code 201) while the server is still running the query. User can use the returned UUID to check the status of the network creation process. The default value is false.",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "false", "true" ],
+            "default" : false
+          },
+          "required" : false
         } ],
         "requestBody" : {
           "content" : {
             "application/json" : {
               "schema" : {
                 "type" : "object",
+                "description" : "The example values used are for demonstration purposes. They can be replaced, as needed.",
                 "properties" : {
                   "searchString" : {
                     "type" : "string",
-                    "description" : "- (Required) A whitespace delimited string of search terms which are matched against:\n  1. the controlled vocabulary terms used in the network\n  2. node names in the network\n- A set of initial nodes is selected based on association with matched terms or simple name match.\n- The query selects edges based on traversal from those initial nodes.\n"
+                    "description" : "- (Required) A whitespace delimited string of search terms which are matched against\n  1. the controlled vocabulary terms used in the network\n  2. node names in the network\n- A set of initial nodes is selected based on association with matched terms or simple name match.\n- The query selects edges based on traversal from those initial nodes.\n"
                   },
                   "searchDepth" : {
                     "type" : "number",
@@ -2008,17 +2070,21 @@
                   },
                   "edgeLimit" : {
                     "type" : "number",
-                    "description" : "- (Optional) Sets the maximum number of edges that this query can return.\n",
-                    "minimum" : 1,
-                    "maximum" : 1500,
-                    "default" : 1500
+                    "description" : "- (Optional) Sets the maximum number of edges that this query can return.\n  A negative or zero value means no linit in the query.\n",
+                    "default" : 0
+                  },
+                  "errorWhenLimitIsOver" : {
+                    "type" : "boolean",
+                    "description" : "- (Optional) If this value is true the server will stop streaming the network when it hits the edgeLimit, add success: false and \n  error: \"EdgeLimitExceeded\" in the status aspect and close the CX stream. \n- If this value is set to false, and the server will return a subnetwork with edge count up to edgeLimit. The status aspect will be a success, and a network attribute \"EdgeLimitExceeded\": \"true\" will be added to the returned network only if the server hits the edgeLimit. The default value is true.\n",
+                    "default" : true
                   }
                 },
                 "required" : [ "searchString" ],
                 "example" : {
-                  "searchString" : "",
+                  "searchString" : "erk*",
                   "searchDepth" : 1,
-                  "edgeLimit" : 1500
+                  "edgeLimit" : 0,
+                  "errorWhenLimitIsOver" : true
                 }
               }
             }
@@ -2030,7 +2096,16 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CX_NetworkStreamSchema"
+                  "type" : "object",
+                  "properties" : {
+                    "data" : {
+                      "type" : "array",
+                      "description" : "CX_Network object",
+                      "items" : {
+                        "$ref" : "#/components/schemas/CX_NetworkObjectSchema"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -2070,20 +2145,22 @@
               "application/json" : {
                 "schema" : {
                   "type" : "object",
-                  "description" : "Response payload object",
+                  "description" : "SearchResult object",
                   "properties" : {
                     "resultList" : {
-                      "description" : "List of User objects",
                       "type" : "array",
+                      "description" : "List of User objects",
                       "items" : {
                         "$ref" : "#/components/schemas/UserObjectSchema"
                       }
                     },
                     "numFound" : {
-                      "type" : "number"
+                      "type" : "number",
+                      "description" : "number of User objects meeting search criterion"
                     },
                     "start" : {
-                      "type" : "number"
+                      "type" : "number",
+                      "description" : "index to first User object returned relative to numFound"
                     }
                   }
                 }
@@ -2435,101 +2512,6 @@
                   "description" : "Object containing key/value pairs representing network UUIDs and their respective permission values.",
                   "example" : {
                     "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" : "ADMIN"
-                  }
-                }
-              }
-            }
-          },
-          "401" : {
-            "$ref" : "#/components/responses/401-response"
-          },
-          "500" : {
-            "$ref" : "#/components/responses/500-response"
-          }
-        }
-      }
-    },
-    "/network/{networkid}/asCX" : {
-      "get" : {
-        "summary" : "Get a Network as CX",
-        "description" : "- Returns all CX aspects of the entire network specified by **networkid** as a CX stream.  \n- This is performed as a monolithic operation, so it is advisable for applications to first use the **getNetworkSummary** method to check the node and edge counts for a network before retrieving the network.\n- Clients may read incrementally and abort the operation if the in-memory structures become to large.\n- Networks designated as read-only are cached by NDEX for rapid access.\n___\n**Server base path {Version} must be toggled to 'rest' to use this method.**\n",
-        "security" : [ ],
-        "tags" : [ "v1.3 API methods" ],
-        "parameters" : [ {
-          "$ref" : "#/components/parameters/NetworkIdPath"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK: Operation successful.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CX_NetworkStreamSchema"
-                }
-              }
-            }
-          },
-          "404" : {
-            "$ref" : "#/components/responses/404-response"
-          },
-          "500" : {
-            "$ref" : "#/components/responses/500-response"
-          }
-        }
-      }
-    },
-    "/network/search/{skipBlocks}/{blockSize}" : {
-      "post" : {
-        "summary" : "Find a Network by Search",
-        "description" : "- Returns an array of NetworkSummary objects and the total hit count of the search.\n- The `searchString` property contains the search query text. Wildcard characters permitted.\n- The search can be constrained using these optional properties:\n    - `permission` - filter by READ / WRITE network permission\n    - `includeGroups` - filter by user's group permission\n    - `accountName` - filter by network owner\n___\n**Server base path {Version} must be toggled to 'rest' to use this method.**\n",
-        "security" : [ ],
-        "tags" : [ "v1.3 API methods" ],
-        "parameters" : [ {
-          "$ref" : "#/components/parameters/SkipBlocksPath"
-        }, {
-          "$ref" : "#/components/parameters/BlockSizePath"
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "object",
-                "properties" : {
-                  "searchString" : {
-                    "type" : "string",
-                    "description" : "- (Required) A whitespace-delimited or comma-delimited string in which each term is a gnne symbol or identified.  The search function will expand each term to its alias, NCBI gene ID, Uniprot IDs, ensembl gene ID using gene query service at [mygene.info](www.mygene.info).\n"
-                  },
-                  "permission" : {
-                    "type" : "string",
-                    "description" : "- (Optional) Use if there is to be filtering based on permission. When provided, it must be specified as either *READ* or *WRITE* only.\n- **WRITE** - the search will only return networks for which the authenticated user has **edit** or **admin** permission.\n- **READ** - the search will only return networks for which the authenticated user has edit, admin, or read permission.  Note that this only includes networks that are readable to explicit permission, and NOT networks that are readable because they have been made public. \n"
-                  },
-                  "includeGroups" : {
-                    "type" : "boolean",
-                    "description" : "- (Optional) Defaults to false.\n- If set to true, the search will also return networks based on permissions from the authenticated user's group memberships.\n- This enables the search to return a network where a group has permission to access the network and the user is a member of the group.\n"
-                  },
-                  "accountName" : {
-                    "type" : "string",
-                    "description" : "- (Optional) If provided, the search will be constrained to networks owned by the specified account.\n"
-                  }
-                },
-                "required" : [ "searchString" ],
-                "example" : {
-                  "searchString" : ""
-                }
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK: Operation successful.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "description" : "List of Network Summary objects",
-                  "items" : {
-                    "$ref" : "#/components/schemas/NetworkSummaryObjectSchema"
                   }
                 }
               }
@@ -3368,6 +3350,16 @@
         },
         "example" : ""
       },
+      "AspectNameDemoPath" : {
+        "in" : "path",
+        "name" : "aspectName",
+        "description" : "An example aspect name is entered below for demonstration purposes.  It can be replaced with another aspect name, as needed. Examples include 'cartesianCoordinates', 'nodes', 'edges', and 'edgeAttributes'.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "cyVisualProperties"
+      },
       "BlockSizePath" : {
         "in" : "path",
         "name" : "blockSize",
@@ -3417,6 +3409,17 @@
         },
         "required" : true,
         "example" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      },
+      "NetworkIdDemoPath" : {
+        "in" : "path",
+        "name" : "networkid",
+        "description" : "A unique identifier (UUID) given to the network acted upon, in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx. An example network UUID is entered below for demonstration purposes. It can be replaced with another network UUID, as needed.",
+        "schema" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "required" : true,
+        "example" : "cac8ec21-2d32-11e8-b939-0ac135e8bacf"
       },
       "NetworkSetIdPath" : {
         "in" : "path",
