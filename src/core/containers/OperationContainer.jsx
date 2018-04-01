@@ -81,6 +81,15 @@ export default class OperationContainer extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    const { isShown } = this.props
+    const resolvedSubtree = this.getResolvedSubtree()
+
+    if(isShown && resolvedSubtree === undefined) {
+      this.requestResolvedSubtree()
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     const { response, isShown } = nextProps
     const resolvedSubtree = this.getResolvedSubtree()
@@ -96,7 +105,8 @@ export default class OperationContainer extends PureComponent {
 
   toggleShown =() => {
     let { layoutActions, tag, operationId, isShown } = this.props
-    if(!isShown) {
+    const resolvedSubtree = this.getResolvedSubtree()
+    if(!isShown && resolvedSubtree === undefined) {
       // transitioning from collapsed to expanded
       this.requestResolvedSubtree()
     }
