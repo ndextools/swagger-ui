@@ -1,9 +1,9 @@
 {
   "openapi" : "3.0.2",
   "info" : {
-    "title" : "NDEx 2.4.1 REST API",
-    "description" : "This [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification) document defines the **N**etwork **D**ata **Ex**change (**NDEx**) REST API which is used to communicate with NDEx public and private servers.\n\nThis document and all references to the NDEx REST API, source code and ancillary documentation are copyrighted: *© 2013-2019, The Regents of the University of California, The Cytoscape Consortium.  All rights reserved.*  Please abide with the [Terms of Use, Licensing and Sources](http://www.home.ndexbio.org/disclaimer-license/). Likewise, the [Swagger-UI](https://github.com/swagger-api/swagger-ui) document reader that displays this OpenAPI document is copyrighted by *Smartbear Software*. Its open-source software license is found [here](https://github.com/swagger-api/swagger-ui/blob/master/LICENSE).\n\nGoogle's OAuth login is not currently supported.  It will be added when the Swagger-UI document reader permits. Basic Authentication and all other API endpoints are supported.\nThe full NDEx API specification is found on the [official NDEx API document](http://www.home.ndexbio.org/using-the-ndex-server-api/) webpage.\n\nThis OpenAPI project is developed and maintained by [Mike Fidel](mailto:mikefidel.us@gmail.com).  Please submit bug reports, enhancement requests and questions through the project's [GitHub's Issue Tracking](https://github.com/ndexbio/openapi-specification/issues).\n",
-    "version" : "2.4.1"
+    "title" : "NDEx 2.4.4 REST API",
+    "description" : "This [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification) document defines the **N**etwork **D**ata **Ex**change (**NDEx**) REST API which is used to communicate with NDEx public and private servers.\n\nThis document and all references to the NDEx REST API, source code and ancillary documentation are copyrighted: *© 2013-2020, The Regents of the University of California, The Cytoscape Consortium.  All rights reserved.*  Please abide with the [Terms of Use, Licensing and Sources](http://www.home.ndexbio.org/disclaimer-license/). Likewise, the [Swagger-UI](https://github.com/swagger-api/swagger-ui) document reader that displays this OpenAPI document is copyrighted by *Smartbear Software*. Its open-source software license is found [here](https://github.com/swagger-api/swagger-ui/blob/master/LICENSE).\n\nGoogle's OAuth2 (OpenID Connect) login is not currently supported.  It will be added when the Swagger-UI document reader permits. Basic Authentication and all other API endpoints are supported.\nThe full NDEx API specification is found on the [official NDEx API document](http://www.home.ndexbio.org/using-the-ndex-server-api/) webpage.\n\nThis OpenAPI project is developed and maintained by [Mike Fidel](mailto:mikefidel.us@gmail.com).  Please submit bug reports, enhancement requests and questions through the project's [GitHub's Issue Tracking](https://github.com/ndexbio/openapi-specification/issues).\n",
+    "version" : "2.4.4"
   },
   "servers" : [ {
     "url" : "http://www.ndexbio.org/v2",
@@ -64,11 +64,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "oneOf" : [ {
-                    "$ref" : "#/components/schemas/AdminStatusStandardSchema"
-                  }, {
-                    "$ref" : "#/components/schemas/AdminStatusFullSchema"
-                  } ]
+                  "$ref" : "#/components/schemas/inline_response_200"
                 }
               }
             }
@@ -561,23 +557,25 @@
         }, {
           "name" : "start",
           "in" : "query",
-          "description" : "Index to first object to return.  (default = 0)",
+          "description" : "Index to first object to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 0
           }
         }, {
           "name" : "size",
           "in" : "query",
-          "description" : "Number of objects to return. (default = 100)",
+          "description" : "Number of objects to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 100
           }
         } ],
@@ -589,7 +587,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/inline_response_200"
+                    "$ref" : "#/components/schemas/inline_response_200_1"
                   }
                 }
               }
@@ -1070,7 +1068,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_1"
+                  "$ref" : "#/components/schemas/inline_response_200_2"
                 }
               }
             }
@@ -1131,7 +1129,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_2"
+                  "$ref" : "#/components/schemas/inline_response_200_3"
                 }
               }
             }
@@ -1186,7 +1184,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_3"
+                  "$ref" : "#/components/schemas/inline_response_200_4"
                 }
               }
             }
@@ -1241,12 +1239,13 @@
         }, {
           "name" : "size",
           "in" : "query",
-          "description" : "Number of objects to return. (default = 100)",
+          "description" : "Number of objects to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 100
           }
         } ],
@@ -1317,7 +1316,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_4"
+                  "$ref" : "#/components/schemas/inline_response_200_5"
                 }
               }
             }
@@ -2274,27 +2273,29 @@
       "post" : {
         "tags" : [ "Search" ],
         "summary" : "Search Groups",
-        "description" : "- Returns an array of Group objects, and returns the total number of objects found that meet the search criterion.\n- The search criterion is found in the request payload's `searchString` property.\n- Wildcard characters are valid in `searchString`.\n",
+        "description" : "- Returns a SearchResult object containing an array of Group objects that have text matching\n  that being searched for. The total number of Group objects meeting the search criteria is also returned.\n- The POSTed request payload object must contain a property key named `searchString` whose value is the text to find.\n- Wildcard characters are valid in `searchString`.  All Group objects will be returned when this property's value is an empty string.\n",
         "parameters" : [ {
           "name" : "start",
           "in" : "query",
-          "description" : "Index to first object to return.  (default = 0)",
+          "description" : "Index to first object to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 0
           }
         }, {
           "name" : "size",
           "in" : "query",
-          "description" : "Number of objects to return. (default = 100)",
+          "description" : "Number of objects to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 100
           }
         } ],
@@ -2302,7 +2303,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/SearchStringPropertySchema"
+                "$ref" : "#/components/schemas/SearchStringRequestPayloadSchema"
               }
             }
           }
@@ -2313,7 +2314,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_5"
+                  "$ref" : "#/components/schemas/SearchResultForGroupsSchema"
                 }
               }
             }
@@ -2342,23 +2343,25 @@
         "parameters" : [ {
           "name" : "start",
           "in" : "query",
-          "description" : "Index to first object to return.  (default = 0)",
+          "description" : "Index to first object to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 0
           }
         }, {
           "name" : "size",
           "in" : "query",
-          "description" : "Number of objects to return. (default = 100)",
+          "description" : "Number of objects to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 100
           }
         } ],
@@ -2406,23 +2409,25 @@
         "parameters" : [ {
           "name" : "start",
           "in" : "query",
-          "description" : "Index to first object to return.  (default = 0)",
+          "description" : "Index to first object to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 0
           }
         }, {
           "name" : "size",
           "in" : "query",
-          "description" : "Number of objects to return. (default = 100)",
+          "description" : "Number of objects to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 100
           }
         } ],
@@ -2430,7 +2435,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/SearchStringPropertySchema"
+                "$ref" : "#/components/schemas/SearchStringRequestPayloadSchema"
               }
             }
           }
@@ -2548,7 +2553,7 @@
         }, {
           "name" : "save",
           "in" : "query",
-          "description" : "Only an authenticated user can call this function with this parameter set to true. When save=true, the server will save the query result as a network in the caller’s account and return the URL of the network resource to the user. Saving query result as a network is a asynchronous call, which means the server will return the URL of the network resource (with HTTP return code 201) while the server is still running the query. User can use the returned UUID to check the status of the network creation process.",
+          "description" : "Only an authenticated user can call this function with this parameter set to true. When save=true, the server will save the query result as a network in the caller’s account and return the URL of the network resource to the user. Saving query result as a network is a asynchronous call, which means the server will return the URL of the network resource (with HTTP return code 201) while the server is still running the query. User can use the returned UUID to check the status of the network creation process. The default value is false.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -2598,27 +2603,29 @@
       "post" : {
         "tags" : [ "Search" ],
         "summary" : "Search Users",
-        "description" : "- Returns an array of User objects, and returns the total number of objects found that meet the search criterion.\n- The search criterion is found in the request payload's `searchString` property.\n- Wildcard characters are valid in `searchString`.\n",
+        "description" : "- Returns a SearchResult object containing an array of User objects that have text matching\n  that being searched for. The total number of User objects meeting the search criteria is also returned.\n- The POSTed request payload object must contain a property key named `searchString` whose value is the text to find.\n- Wildcard characters are valid in `searchString`.  All User objects will be returned when this property's value is an empty string.\n",
         "parameters" : [ {
           "name" : "start",
           "in" : "query",
-          "description" : "Index to first object to return.  (default = 0)",
+          "description" : "Index to first object to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 0
           }
         }, {
           "name" : "size",
           "in" : "query",
-          "description" : "Number of objects to return. (default = 100)",
+          "description" : "Number of objects to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 100
           }
         } ],
@@ -2626,7 +2633,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/SearchStringPropertySchema"
+                "$ref" : "#/components/schemas/SearchStringRequestPayloadSchema"
               }
             }
           }
@@ -2637,7 +2644,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_9"
+                  "$ref" : "#/components/schemas/SearchResultForUsersSchema"
                 }
               }
             }
@@ -2678,23 +2685,25 @@
         }, {
           "name" : "start",
           "in" : "query",
-          "description" : "Index to first object to return.  (default = 0)",
+          "description" : "Index to first object to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 0
           }
         }, {
           "name" : "size",
           "in" : "query",
-          "description" : "Number of objects to return. (default = 100)",
+          "description" : "Number of objects to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 100
           }
         } ],
@@ -3015,12 +3024,13 @@
         }, {
           "name" : "offset",
           "in" : "query",
-          "description" : "Index to first object to return.  (default = 0)",
+          "description" : "Index to first object to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 0
           }
         }, {
@@ -3031,7 +3041,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number"
+            "type" : "integer",
+            "format" : "int32"
           }
         }, {
           "name" : "summary",
@@ -3042,7 +3053,7 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "boolean",
+            "type" : "string",
             "default" : "false",
             "enum" : [ "true", "false" ]
           }
@@ -3055,7 +3066,7 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "boolean",
+            "type" : "string",
             "default" : "false",
             "enum" : [ "true", "false" ]
           }
@@ -3109,12 +3120,13 @@
         }, {
           "name" : "offset",
           "in" : "query",
-          "description" : "Index to first object to return.  (default = 0)",
+          "description" : "Index to first object to return.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number",
+            "type" : "integer",
+            "format" : "int32",
             "default" : 0
           }
         }, {
@@ -3125,7 +3137,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "number"
+            "type" : "integer",
+            "format" : "int32"
           }
         } ],
         "responses" : {
@@ -3186,12 +3199,14 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "format" : "uuid"
           },
           "example" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         }, {
           "name" : "directonly",
           "in" : "query",
+          "description" : "Grant permissions are to be included in the result.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -3256,7 +3271,7 @@
             "type" : "string"
           }
         },
-        "description" : "Response payload when status=standard"
+        "description" : "Response payload when status=standard."
       },
       "AdminStatusFullSchema" : {
         "type" : "object",
@@ -3521,17 +3536,14 @@
           },
           "image" : {
             "type" : "string",
-            "format" : "url",
-            "nullable" : true
+            "format" : "url"
           },
           "website" : {
             "type" : "string",
-            "format" : "url",
-            "nullable" : true
+            "format" : "url"
           },
           "description" : {
-            "type" : "string",
-            "nullable" : true
+            "type" : "string"
           },
           "externalId" : {
             "type" : "string",
@@ -3803,7 +3815,49 @@
           }
         }
       },
-      "SearchStringPropertySchema" : {
+      "SearchResultForGroupsSchema" : {
+        "type" : "object",
+        "properties" : {
+          "resultList" : {
+            "type" : "array",
+            "description" : "List of returned group objects matching search criteria.",
+            "items" : {
+              "$ref" : "#/components/schemas/GroupObjectSchema"
+            }
+          },
+          "numFound" : {
+            "type" : "number",
+            "description" : "Number of Group objects matching search criteria."
+          },
+          "start" : {
+            "type" : "number",
+            "description" : "Index to first object returned relative to numFound."
+          }
+        },
+        "description" : "Search result for Group objects"
+      },
+      "SearchResultForUsersSchema" : {
+        "type" : "object",
+        "properties" : {
+          "resultList" : {
+            "type" : "array",
+            "description" : "List of returned User objects matching search criteria.",
+            "items" : {
+              "$ref" : "#/components/schemas/UserObjectSchema"
+            }
+          },
+          "numFound" : {
+            "type" : "number",
+            "description" : "Number of User objects matching search criteria."
+          },
+          "start" : {
+            "type" : "number",
+            "description" : "Index to first object returned relative to numFound."
+          }
+        },
+        "description" : "Search result for User objects"
+      },
+      "SearchStringRequestPayloadSchema" : {
         "required" : [ "searchString" ],
         "type" : "object",
         "properties" : {
@@ -3812,7 +3866,7 @@
             "description" : "Text used for the search. It can include wildcards."
           }
         },
-        "description" : "A JSON object within the HTTP request payload which specifies the what is to be searched.",
+        "description" : "A POSTed request payload specifying the text string to search for.",
         "example" : {
           "searchString" : ""
         }
@@ -3900,31 +3954,14 @@
           "userName" : {
             "type" : "string"
           },
-          "password" : {
-            "type" : "string",
-            "format" : "password",
-            "nullable" : true
-          },
           "isVerified" : {
             "type" : "boolean"
-          },
-          "emailAddress" : {
-            "type" : "string",
-            "format" : "email"
           },
           "firstName" : {
             "type" : "string"
           },
           "lastName" : {
             "type" : "string"
-          },
-          "diskQuota" : {
-            "type" : "number",
-            "nullable" : true
-          },
-          "diskUsed" : {
-            "type" : "number",
-            "nullable" : true
           },
           "image" : {
             "type" : "string",
@@ -3933,8 +3970,7 @@
           },
           "website" : {
             "type" : "string",
-            "format" : "url",
-            "nullable" : true
+            "format" : "url"
           },
           "description" : {
             "type" : "string",
@@ -3958,6 +3994,13 @@
           }
         },
         "description" : "User object"
+      },
+      "inline_response_200" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/AdminStatusStandardSchema"
+        }, {
+          "$ref" : "#/components/schemas/AdminStatusFullSchema"
+        } ]
       },
       "body" : {
         "type" : "object",
@@ -4032,7 +4075,7 @@
         },
         "description" : "Group object"
       },
-      "inline_response_200" : {
+      "inline_response_200_1" : {
         "type" : "object",
         "properties" : {
           "permissions" : {
@@ -4061,7 +4104,7 @@
           }
         }
       },
-      "inline_response_200_1" : {
+      "inline_response_200_2" : {
         "type" : "object",
         "properties" : {
           "accesskey" : {
@@ -4072,7 +4115,7 @@
         },
         "description" : "Returned access key"
       },
-      "inline_response_200_2" : {
+      "inline_response_200_3" : {
         "type" : "object",
         "properties" : {
           "accessKey" : {
@@ -4082,7 +4125,7 @@
         },
         "description" : "Returned access key"
       },
-      "inline_response_200_3" : {
+      "inline_response_200_4" : {
         "type" : "object",
         "properties" : {
           "metaData" : {
@@ -4095,7 +4138,7 @@
         },
         "description" : "Response payload"
       },
-      "inline_response_200_4" : {
+      "inline_response_200_5" : {
         "type" : "object",
         "properties" : {
           "elementCount" : {
@@ -4223,27 +4266,6 @@
         "example" : {
           "showcase" : true
         }
-      },
-      "inline_response_200_5" : {
-        "type" : "object",
-        "properties" : {
-          "resultList" : {
-            "type" : "array",
-            "description" : "List of Group objects",
-            "items" : {
-              "$ref" : "#/components/schemas/GroupObjectSchema"
-            }
-          },
-          "numFound" : {
-            "type" : "number",
-            "description" : "number of Group objects meeting search criterion"
-          },
-          "start" : {
-            "type" : "number",
-            "description" : "index to first Group object returned relative to numFound"
-          }
-        },
-        "description" : "SearchResult object"
       },
       "body_8" : {
         "required" : [ "searchString" ],
@@ -4393,27 +4415,6 @@
           "edgeLimit" : 0,
           "errorWhenLimitIsOver" : true
         }
-      },
-      "inline_response_200_9" : {
-        "type" : "object",
-        "properties" : {
-          "resultList" : {
-            "type" : "array",
-            "description" : "List of User objects",
-            "items" : {
-              "$ref" : "#/components/schemas/UserObjectSchema"
-            }
-          },
-          "numFound" : {
-            "type" : "number",
-            "description" : "number of User objects meeting search criterion"
-          },
-          "start" : {
-            "type" : "number",
-            "description" : "index to first User object returned relative to numFound"
-          }
-        },
-        "description" : "SearchResult object"
       },
       "AdminStatusStandardSchema_properties" : {
         "type" : "object",
@@ -4579,6 +4580,19 @@
           "format" : "uuid"
         }
       },
+      "AdminStatusParam" : {
+        "name" : "format",
+        "in" : "query",
+        "description" : "Determines the server information to be returned.\n  * **standard** - returns properties such as server version and build. The *AdminStatusStandardSchema* Model is returned.\n  * **full** - returns standard properties as well as additional properties.  The *AdminStatusFullSchema* Model is returned.\n",
+        "required" : false,
+        "allowEmptyValue" : true,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "standard", "full" ]
+        }
+      },
       "AspectNamePath" : {
         "name" : "aspectName",
         "in" : "path",
@@ -4609,9 +4623,33 @@
         "style" : "simple",
         "explode" : false,
         "schema" : {
-          "type" : "number"
+          "type" : "integer",
+          "format" : "int32"
         },
         "example" : 100
+      },
+      "DirectOnlyParam" : {
+        "name" : "directonly",
+        "in" : "query",
+        "description" : "Grant permissions are to be included in the result.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "false", "true" ]
+        }
+      },
+      "DownloadParam" : {
+        "name" : "download",
+        "in" : "query",
+        "required" : true,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "true" ]
+        }
       },
       "GroupIdPath" : {
         "name" : "groupid",
@@ -4645,8 +4683,21 @@
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "number"
+          "type" : "integer",
+          "format" : "int32"
         }
+      },
+      "NetworkIdParam" : {
+        "name" : "networkId",
+        "in" : "query",
+        "required" : true,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "format" : "uuid"
+        },
+        "example" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
       },
       "NetworkIdPath" : {
         "name" : "networkid",
@@ -4690,52 +4741,56 @@
       "OffsetParam" : {
         "name" : "offset",
         "in" : "query",
-        "description" : "Index to first object to return.  (default = 0)",
+        "description" : "Index to first object to return.",
         "required" : false,
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "number",
+          "type" : "integer",
+          "format" : "int32",
           "default" : 0
+        }
+      },
+      "SaveParam" : {
+        "name" : "save",
+        "in" : "query",
+        "description" : "Only an authenticated user can call this function with this parameter set to true. When save=true, the server will save the query result as a network in the caller’s account and return the URL of the network resource to the user. Saving query result as a network is a asynchronous call, which means the server will return the URL of the network resource (with HTTP return code 201) while the server is still running the query. User can use the returned UUID to check the status of the network creation process. The default value is false.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "default" : "false",
+          "enum" : [ "false", "true" ]
         }
       },
       "SizeParam" : {
         "name" : "size",
         "in" : "query",
-        "description" : "Number of objects to return. (default = 100)",
+        "description" : "Number of objects to return.",
         "required" : false,
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "number",
+          "type" : "integer",
+          "format" : "int32",
           "default" : 100
         }
-      },
-      "SkipBlocksPath" : {
-        "name" : "skipBlocks",
-        "in" : "path",
-        "description" : "number of blocks that have already been read.",
-        "required" : true,
-        "style" : "simple",
-        "explode" : false,
-        "schema" : {
-          "type" : "integer"
-        },
-        "example" : 0
       },
       "StartParam" : {
         "name" : "start",
         "in" : "query",
-        "description" : "Index to first object to return.  (default = 0)",
+        "description" : "Index to first object to return.",
         "required" : false,
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "number",
+          "type" : "integer",
+          "format" : "int32",
           "default" : 0
         }
       },
-      "Showcase" : {
+      "ShowcaseParam" : {
         "name" : "showcase",
         "in" : "query",
         "description" : "When true, only showcased networksets are returned\n",
@@ -4744,12 +4799,12 @@
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "boolean",
+          "type" : "string",
           "default" : "false",
           "enum" : [ "true", "false" ]
         }
       },
-      "Summary" : {
+      "SummaryParam" : {
         "name" : "summary",
         "in" : "query",
         "description" : "When true, the server will not return the list of network IDs in this network set\n",
@@ -4758,7 +4813,7 @@
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "boolean",
+          "type" : "string",
           "default" : "false",
           "enum" : [ "true", "false" ]
         }
@@ -4775,6 +4830,19 @@
           "format" : "uuid"
         },
         "example" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      },
+      "TaskStatusParam" : {
+        "name" : "status",
+        "in" : "query",
+        "description" : "Current state of the task workflow.",
+        "required" : false,
+        "allowEmptyValue" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "COMPLETED", "PROCESSING", "QUEUED", "FAILED" ]
+        }
       },
       "UserIdParam" : {
         "name" : "userid",
@@ -4802,7 +4870,7 @@
         },
         "example" : "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
       },
-      "Visibility" : {
+      "VisibilityParam" : {
         "name" : "visibility",
         "in" : "query",
         "description" : "(Optional) Indicates the visibility setting of the network when it is uploaded.\n",
